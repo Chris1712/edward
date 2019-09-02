@@ -1,0 +1,1 @@
+java -jar target\edward-1.0-SNAPSHOT.jar
