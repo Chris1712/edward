@@ -1,6 +1,9 @@
 package personal.chris;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,8 +12,6 @@ import java.util.Base64;
 
 public class Edward {
 
-    public enum OperationModes {DECODE, ENCODE}
-
     public static void main(String[] args) throws IOException {
         validateArgs(args);
         Path readPath = Paths.get(args[1]);
@@ -18,10 +19,13 @@ public class Edward {
         if (args[0].equals("-e")) {
             byte[] fileBytes = Files.readAllBytes(readPath);
             String fileString = Base64.getEncoder().encodeToString(fileBytes);
-//            Path writePath =
-            //  Whatever the file is, convert to base 64 string, put some stuff above it, and put in .edward
+            String writePath = args[1] + ".edward"; // Write out to example.zip.edward
+            BufferedWriter writer = new BufferedWriter(new FileWriter(writePath));
+            writer.write(fileString);
+            writer.close();
 
         } else if (args[0].equals("-d")) {
+             String fileContent;
             //  Verify .edward file, parse top bit, read in base 64 and then output
         }
     }
