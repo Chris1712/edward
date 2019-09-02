@@ -63,6 +63,30 @@ class EdwardTest {
         }
 
         @Test
+        @DisplayName("Should throw an error if the first argument is the wrong case")
+        public void upperCaseFirstArgument() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"-E", "arg2"});
+            });
+        }
+
+        @Test
+        @DisplayName("Should throw an error if trying to encode .edward file")
+        public void encodeEdward() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"-e", ".edward"});
+            });
+        }
+
+        @Test
+        @DisplayName("Should throw an error if trying to decode a file that isn't .edward")
+        public void decodeNonEdward() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"-d", "somefile"});
+            });
+        }
+
+        @Test
         @DisplayName("Should not throw an error for a valid encode request")
         public void validEncode() {
             Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -74,10 +98,10 @@ class EdwardTest {
         @DisplayName("Should not throw an error for a valid decode request")
         public void validDecode() {
             Assertions.assertThrows(IllegalArgumentException.class, () -> {
-                target.main(new String[]{"-d", "arg2"});
+                target.main(new String[]{"-d", "arg2.edward"});
             });
         }
-        
+
     }
 
 }
