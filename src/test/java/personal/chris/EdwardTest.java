@@ -39,14 +39,45 @@ class EdwardTest {
         }
 
         @Test
-        @DisplayName("Should throw an error if more than one argument is supplied")
-        public void multipleArguments() {
+        @DisplayName("Should throw an error if more than two arguments are supplied")
+        public void tooManyArguments() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"arg1", "arg2", "arg3"});
+            });
+        }
+
+        @Test
+        @DisplayName("Should throw an error if less than two arguments are supplied")
+        public void singleArgument() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"arg1"});
+            });
+        }
+
+        @Test
+        @DisplayName("Should throw an error if the first argument is invalid")
+        public void badFirstArgument() {
             Assertions.assertThrows(IllegalArgumentException.class, () -> {
                 target.main(new String[]{"arg1", "arg2"});
             });
         }
 
+        @Test
+        @DisplayName("Should not throw an error for a valid encode request")
+        public void validEncode() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"-e", "arg2"});
+            });
+        }
 
+        @Test
+        @DisplayName("Should not throw an error for a valid decode request")
+        public void validDecode() {
+            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+                target.main(new String[]{"-d", "arg2"});
+            });
+        }
+        
     }
 
 }
