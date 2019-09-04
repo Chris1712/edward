@@ -1,0 +1,6 @@
+1. If we write to a file, we shouldn't need to have the whole file in memory, we can load and write simultaneously
+2. Add tests for overwrite behaviour, if writing to file
+3. Add integration tests
+4. Drag over executable?
+5. Piping? Generate a file.
+6. Get as a binary to make commands nicer than java -jar
