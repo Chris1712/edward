@@ -38,10 +38,12 @@ class ArgumentParserTest {
                     target.parseArgs(args)
             );
         }
+
     }
 
     @Nested
     class HelpMode {
+
         @Test
         @DisplayName("Should call help if the argument supplied is 'help'")
         public void helpArg() {
@@ -65,6 +67,7 @@ class ArgumentParserTest {
             target.parseArgs(args);
             verify(mockHelp).getHelp();
         }
+
     }
 
     @Nested
@@ -97,6 +100,14 @@ class ArgumentParserTest {
             );
         }
 
+        @Test
+        @DisplayName("Should verify 3rd argument exists as a file")
+        public void checkFileExists() {
+            String[] args = {"encode", "-f", "somefile"};
+            assertThrows(IllegalArgumentException.class, () ->
+                    target.parseArgs(args)
+            );
+        }
 
     }
 

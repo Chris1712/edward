@@ -3,6 +3,9 @@ package personal.chris.edward;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/***
+ * Service for parsing arguments supplied to Edward
+ */
 @Service
 public class ArgumentParser {
 
@@ -13,27 +16,35 @@ public class ArgumentParser {
         this.help = help;
     }
 
-
+    /***
+     * Parses the supplied arguments and acts as required.
+     * @param args The arguments with which Edward was called
+     */
     public void parseArgs(String[] args) {
-        help.getHelp();
-        if (args == null) {
-            throw new IllegalArgumentException("Null argument supplied");
+        if (args == null || args.length == 0) {
+            throw new IllegalArgumentException("No arguments supplied");
         }
-        if (args.length != 2) {
+        if (args.length > 3) {
             throw new IllegalArgumentException("Incorrect number of arguments supplied. Try 'help' for more info.");
         }
-        if (!args[0].matches("encode|decode")) {
-            throw new IllegalArgumentException("First argument must be mode; 'encode' or 'decode'. Try 'help' for more info.");
+        if (args[0].matches("help|-h|-H")) {
+            help.getHelp();
+            return;
         }
-        if (args[0].equals("-d") && !args[1].matches(".*\\.edward")) {
-            throw new IllegalArgumentException("Can only decode .edward files");
+        if (args[0].equals("encode")) {
+            validateEncode(args);
+        } else if (args[0].equals("decode")) {
+            validateDecode(args);
+        } else {
+            throw new IllegalArgumentException("Incorrect arguments supplied. Try 'help' for more info.");
         }
-        if (args[0].equals("-e") && args[1].matches(".*\\.edward")) {
-            throw new IllegalArgumentException("Cannot encode .edward files");
-        }
+    }
 
+    private void validateEncode(String[] args) {
 
-        help.getHelp();
+    }
+    private void validateDecode(String[] args) {
+
     }
 
 }
