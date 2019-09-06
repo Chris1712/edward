@@ -1,3 +1,23 @@
+Structure:
+
+edward help
+edward -h
+edward -H
+    give list of commands
+
+
+edward decode
+    -f provide file
+edward decode {base64}
+
+edward encode
+    -f provide file
+
+general structure:
+    main calls argumentParser
+    argumentParser calls out as required
+
+
 1. If we write to a file, we shouldn't need to have the whole file in memory, we can load and write simultaneously
 2. Add tests for overwrite behaviour, if writing to file
 3. Add integration tests

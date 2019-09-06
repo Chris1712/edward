@@ -12,7 +12,7 @@ import java.util.Base64;
 public class Edward {
 
     public static void main(String[] args) throws IOException {
-        validateArgs(args);
+        ArgumentParser.parseArgs(args);
         Path readPath = Paths.get(args[1]);
 
         if (args[0].equals("-e")) {
@@ -32,22 +32,10 @@ public class Edward {
         }
     }
 
-    public static void validateArgs(String[] args) throws IllegalArgumentException {
-        if (args == null) {
-            throw new IllegalArgumentException("Null argument supplied");
-        }
-        if (args.length != 2) {
-            throw new IllegalArgumentException("Incorrect number of arguments supplied");
-        }
-        if (!args[0].matches("-[ed]")) {
-            throw new IllegalArgumentException("Incorrect number of arguments supplied");
-        }
-        if (args[0].equals("-d") && !args[1].matches(".*\\.edward")) {
-            throw new IllegalArgumentException("Can only decode .edward files");
-        }
-        if (args[0].equals("-e") && args[1].matches(".*\\.edward")) {
-            throw new IllegalArgumentException("Cannot encode .edward files");
-        }
-
+    public static void getHelp() {
+        System.out.println("Edward is a tool for encoding and decoding files to base64 strings");
+        System.out.println("To encode a file use 'edward encode -f myfile");
+        System.out.println("To decode a file try 'edward decode -f myfile.edward");
+        System.exit(0);
     }
 }
