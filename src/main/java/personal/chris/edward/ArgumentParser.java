@@ -6,8 +6,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class ArgumentParser {
 
-    @Autowired
     Help help;
+
+    @Autowired
+    public ArgumentParser(Help help) {
+        this.help = help;
+    }
 
 
     public void parseArgs(String[] args) {

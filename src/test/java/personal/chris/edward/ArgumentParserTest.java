@@ -1,14 +1,24 @@
 package personal.chris.edward;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
+import static org.mockito.Mockito.mock;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 
 class ArgumentParserTest {
 
-    /*@Nested
+    ArgumentParser target;
+    Help mockHelp;
+
+    @BeforeEach
+    public void setup() {
+        mockHelp = mock(Help.class);
+        target = new ArgumentParser(mockHelp);
+    }
+
+    @Nested
     class Modes {
 
         @Test
@@ -16,7 +26,7 @@ class ArgumentParserTest {
         public void noArgument() {
             String[] args = {};
             assertThrows(IllegalArgumentException.class, () ->
-                    ArgumentParser.parseArgs(args)
+                    target.parseArgs(args)
             );
         }
 
@@ -25,44 +35,47 @@ class ArgumentParserTest {
         public void badFirst() {
             String[] args = {"badfirst", "second"};
             assertThrows(IllegalArgumentException.class, () ->
-                    ArgumentParser.parseArgs(args)
+                    target.parseArgs(args)
             );
         }
     }
 
     @Nested
-    class Help {
+    class HelpMode {
         @Test
         @DisplayName("Should call help if the argument supplied is 'help'")
         public void helpArg() {
             String[] args = {"help"};
-            // todo - expect Help.help to have been called
+            target.parseArgs(args);
+            verify(mockHelp).getHelp();
         }
 
         @Test
         @DisplayName("Should call help if the argument supplied is '-h'")
         public void lowerCaseHArg() {
             String[] args = {"-h"};
-            // todo - expect Help.help to have been called
+            target.parseArgs(args);
+            verify(mockHelp).getHelp();
         }
 
         @Test
         @DisplayName("Should call help if the argument supplied is '-H'")
         public void upperCaseHArg() {
             String[] args = {"-H"};
-            // todo - expect Help.help to have been called
+            target.parseArgs(args);
+            verify(mockHelp).getHelp();
         }
     }
 
     @Nested
-    class Encode {
+    class EncodeMode {
 
         @Test
         @DisplayName("Should throw an error if no further arguments are supplied")
         public void noFurtherArgs() {
             String[] args = {"encode"};
             assertThrows(IllegalArgumentException.class, () ->
-                    ArgumentParser.parseArgs(args)
+                    target.parseArgs(args)
             );
         }
 
@@ -71,7 +84,7 @@ class ArgumentParserTest {
         public void badSecondArg() {
             String[] args = {"encode", "badarg", "somefile"};
             assertThrows(IllegalArgumentException.class, () ->
-                    ArgumentParser.parseArgs(args)
+                    target.parseArgs(args)
             );
         }
 
@@ -80,12 +93,12 @@ class ArgumentParserTest {
         public void tooManyArgs() {
             String[] args = {"encode", "-f", "somefile", "anotherArg"};
             assertThrows(IllegalArgumentException.class, () ->
-                    ArgumentParser.parseArgs(args)
+                    target.parseArgs(args)
             );
         }
 
 
-    }*/
+    }
 
 
 }
