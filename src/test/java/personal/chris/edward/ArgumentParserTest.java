@@ -109,6 +109,15 @@ class ArgumentParserTest {
             );
         }
 
+        @Test
+        @DisplayName("Should call the X service with the string to encode")
+        public void callService() {
+            String[] args = {"encode", "-f", "somefile"};
+            assertThrows(IllegalArgumentException.class, () ->
+                    target.parseArgs(args)
+            );
+        }
+
     }
 
 

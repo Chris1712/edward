@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class ArgumentParser {
 
     Help help;
+    private static final String INCORRECT_ARGS_MSG = "Incorrect arguments supplied. Try 'help' for more info.";
 
     @Autowired
     public ArgumentParser(Help help) {
@@ -24,9 +25,6 @@ public class ArgumentParser {
         if (args == null || args.length == 0) {
             throw new IllegalArgumentException("No arguments supplied");
         }
-        if (args.length > 3) {
-            throw new IllegalArgumentException("Incorrect number of arguments supplied. Try 'help' for more info.");
-        }
         if (args[0].matches("help|-h|-H")) {
             help.getHelp();
             return;
@@ -36,14 +34,29 @@ public class ArgumentParser {
         } else if (args[0].equals("decode")) {
             validateDecode(args);
         } else {
-            throw new IllegalArgumentException("Incorrect arguments supplied. Try 'help' for more info.");
+            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
         }
     }
 
     private void validateEncode(String[] args) {
+        if (!args[1].equals("-f")) {
+            throw new IllegalArgumentException("Must supply a file for encoding. Try 'help' for more info.");
+        }
+        if (args.length != 3) {
+            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
+        }
+        // validate the file exists, then pass it to the relevant provider
 
     }
+
     private void validateDecode(String[] args) {
+        if (!args[1].equals("-f")) {
+            throw new IllegalArgumentException("Must supply a file for decoding. Try 'help' for more info.");
+        }
+        if (args.length != 3) {
+            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
+        }
+        // validate the file exists, then pass it to the relevant provider
 
     }
 
