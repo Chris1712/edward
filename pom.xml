@@ -49,7 +49,7 @@
                     <finalName>edward</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>personal.chris.edward.Edward</mainClass>
+                            <mainClass>personal.chris.edward.services.Edward</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -1,18 +1,9 @@
-package personal.chris.edward;
+package personal.chris.edward.services;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 
 @Configuration
 @ComponentScan
@@ -43,10 +34,13 @@ public class Edward {
 //    }
 
     public static void main(String[] args) {
-        // todo - catch exceptions and report message
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Edward.class);
         ArgumentParser parser = applicationContext.getBean(ArgumentParser.class);
-        parser.parseArgs(args);
+        try {
+            parser.parseArgs(args);
+        } catch (IllegalArgumentException ex) {
+            System.out.println("");
+        }
     }
 
 

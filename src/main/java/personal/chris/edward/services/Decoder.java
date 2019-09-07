@@ -1,4 +1,4 @@
-package personal.chris.edward;
+package personal.chris.edward.services;
 
 import org.springframework.stereotype.Service;
 
@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
  * Service for parsing arguments supplied to Edward and determining methods required
  */
 @Service
-public class Encoder {
+public class Decoder {
 
-    public void encodeFileToFile(String filePath) {
+    public void decodeFileToFile(String filePath) {
 
     }
 

@@ -1,6 +1,10 @@
 package personal.chris.edward;
 
 import org.junit.jupiter.api.*;
+import personal.chris.edward.services.ArgumentParser;
+import personal.chris.edward.services.Decoder;
+import personal.chris.edward.services.Encoder;
+import personal.chris.edward.services.Help;
 
 import static org.mockito.Mockito.mock;
 

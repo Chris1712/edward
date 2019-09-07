@@ -1,7 +1,8 @@
-package personal.chris.edward;
+package personal.chris.edward.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import personal.chris.edward.Messages;
 
 /***
  * Service for parsing arguments supplied to Edward and determining methods required
@@ -13,7 +14,6 @@ public class ArgumentParser {
     private final Encoder encoder;
     private final Decoder decoder;
 
-    private static final String INCORRECT_ARGS_MSG = "Incorrect arguments supplied. Try 'help' for more info.";
 
     @Autowired
     public ArgumentParser(Help help, Encoder encoder, Decoder decoder) {
@@ -28,7 +28,7 @@ public class ArgumentParser {
      */
     public void parseArgs(String[] args) {
         if (args == null || args.length == 0) { // Must supply at least 1 arg
-            throw new IllegalArgumentException("No arguments supplied");
+            throw new IllegalArgumentException(Messages.NO_ARGS);
         }
         if (args[0].matches("help|-h|-H")) {
             help.getHelp();
@@ -39,26 +39,26 @@ public class ArgumentParser {
         } else if (args[0].equals("decode")) {
             validateDecode(args);
         } else { // First arg must be for help, encode or decode
-            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
+            throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
         }
     }
 
     private void validateEncode(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
+            throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
         }
         if (!args[1].equals("-f")) {
-            throw new IllegalArgumentException("Must supply a file for encoding. Try 'help' for more info.");
+            throw new IllegalArgumentException(Messages.MUST_SUPPLY_FILE_FOR_ENCODE);
         }
         encoder.encodeFileToFile(args[2]);
     }
 
     private void validateDecode(String[] args) {
         if (args.length != 3) {
-            throw new IllegalArgumentException(INCORRECT_ARGS_MSG);
+            throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
         }
         if (!args[1].equals("-f")) {
-            throw new IllegalArgumentException("Must supply a file for decoding. Try 'help' for more info.");
+            throw new IllegalArgumentException(Messages.MUST_SUPPLY_FILE_FOR_DECODE);
         }
         decoder.decodeFileToFile(args[2]);
     }
