@@ -43,6 +43,7 @@ public class Edward {
 //    }
 
     public static void main(String[] args) {
+        // todo - catch exceptions and report message
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Edward.class);
         ArgumentParser parser = applicationContext.getBean(ArgumentParser.class);
         parser.parseArgs(args);
