@@ -1,9 +1,7 @@
 package personal.chris.edward;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,8 +33,8 @@ public class Edward {
 //            writer.write(fileString);
 //            writer.close();
 //        } else if (args[0].equals("-d")) {
-//            String writePath = args[1].substring(0, args[1].length()-7); // todo, we could get the writepath from the args as a testable method
-//            String fileContent = new String(Files.readAllBytes(readPath)); // todo, may need buffering
+//            String writePath = args[1].substring(0, args[1].length()-7);
+//            String fileContent = new String(Files.readAllBytes(readPath));
 //            byte[] fileBytes = Base64.getDecoder().decode(fileContent);
 //            try (FileOutputStream stream = new FileOutputStream(writePath)) {
 //                stream.write(fileBytes);
@@ -44,14 +42,10 @@ public class Edward {
 //        }
 //    }
 
-
-    private static ApplicationContext applicationContext;
-
     public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(Edward.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Edward.class);
         ArgumentParser parser = applicationContext.getBean(ArgumentParser.class);
         parser.parseArgs(args);
-
     }
 
 
