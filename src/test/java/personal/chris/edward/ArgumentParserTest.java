@@ -11,11 +11,15 @@ class ArgumentParserTest {
 
     ArgumentParser target;
     Help mockHelp;
+    Encoder mockEncoder;
+    Decoder mockDecoder;
 
     @BeforeEach
     public void setup() {
         mockHelp = mock(Help.class);
-        target = new ArgumentParser(mockHelp);
+        mockEncoder = mock(Encoder.class);
+        mockDecoder = mock(Decoder.class);
+        target = new ArgumentParser(mockHelp, mockEncoder, mockDecoder);
     }
 
     @Nested
@@ -101,21 +105,51 @@ class ArgumentParserTest {
         }
 
         @Test
-        @DisplayName("Should verify 3rd argument exists as a file")
-        public void checkFileExists() {
+        @DisplayName("Should call the encode service with the path to encode")
+        public void callService() {
             String[] args = {"encode", "-f", "somefile"};
+            target.parseArgs(args);
+            verify(mockEncoder).encodeFileToFile("somefile");
+        }
+
+    }
+
+    @Nested
+    class DecodeMode {
+
+        @Test
+        @DisplayName("Should throw an error if no further arguments are supplied")
+        public void noFurtherArgs() {
+            String[] args = {"decode"};
             assertThrows(IllegalArgumentException.class, () ->
                     target.parseArgs(args)
             );
         }
 
         @Test
-        @DisplayName("Should call the X service with the string to encode")
-        public void callService() {
-            String[] args = {"encode", "-f", "somefile"};
+        @DisplayName("Should throw an error if the second argument isn't -f")
+        public void badSecondArg() {
+            String[] args = {"decode", "badarg", "somefile"};
             assertThrows(IllegalArgumentException.class, () ->
                     target.parseArgs(args)
             );
+        }
+
+        @Test
+        @DisplayName("Should throw an error if there are more than three arguments")
+        public void tooManyArgs() {
+            String[] args = {"decode", "-f", "somefile", "anotherArg"};
+            assertThrows(IllegalArgumentException.class, () ->
+                    target.parseArgs(args)
+            );
+        }
+
+        @Test
+        @DisplayName("Should call the decode service with the path to encode")
+        public void callService() {
+            String[] args = {"decode", "-f", "somefile"};
+            target.parseArgs(args);
+            verify(mockDecoder).decodeFileToFile("somefile");
         }
 
     }
