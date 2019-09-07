@@ -1,4 +1,4 @@
-package personal.chris.edward;
+package personal.chris.edward.services;
 
 import org.junit.jupiter.api.*;
 import personal.chris.edward.services.ArgumentParser;

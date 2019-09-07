@@ -1,8 +1,8 @@
-package personal.chris.edward;
+package personal.chris.edward.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DecoderTest {
+class EncoderTest {
     // todo
 
 }
