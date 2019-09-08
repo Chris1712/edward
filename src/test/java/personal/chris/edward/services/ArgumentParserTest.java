@@ -105,11 +105,19 @@ class ArgumentParserTest {
         }
 
         @Test
-        @DisplayName("Should call the encode service with the path to encode")
-        void callService() {
+        @DisplayName("Should call the encode service with the path to encode and an inferred write location")
+        void callServiceNoOutputSpecified() {
             String[] args = {"encode", "-f", "someFile"};
             target.parseArgs(args);
             verify(mockEncoder).encodeFileToFile("someFile", "someFile.edward");
+        }
+
+        @Test
+        @DisplayName("Should call the encode service with the path to encode and a provided write location")
+        void callServiceWithOutputSpecified() {
+            String[] args = {"encode", "-f", "someFile", "-o", "outHere"};
+            target.parseArgs(args);
+            verify(mockEncoder).encodeFileToFile("someFile", "outHere");
         }
 
     }
@@ -145,11 +153,19 @@ class ArgumentParserTest {
         }
 
         @Test
-        @DisplayName("Should call the decode service with the path to decode")
-        void callService() {
+        @DisplayName("Should call the decode service with the path to decode and an inferred write location")
+        void callServiceNoOutputSpecified() {
             String[] args = {"decode", "-f", "someFile.edward"};
             target.parseArgs(args);
             verify(mockDecoder).decodeFileToFile("someFile.edward", "someFile");
+        }
+
+        @Test
+        @DisplayName("Should call the decode service with the path to decode and a provided write location")
+        void callServiceWithOutputSpecified() {
+            String[] args = {"decode", "-f", "someFile.edward", "-o", "outHere"};
+            target.parseArgs(args);
+            verify(mockDecoder).decodeFileToFile("someFile.edward", "outHere");
         }
 
     }

@@ -55,7 +55,6 @@ class EndToEndTest {
         assertEquals(tempFileHash, decodedFileHash);
     }
 
-
     @AfterAll
     static void teardown() {
         String[] filesToClear = {
