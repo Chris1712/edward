@@ -109,7 +109,7 @@ class ArgumentParserTest {
         void callService() {
             String[] args = {"encode", "-f", "someFile"};
             target.parseArgs(args);
-            verify(mockEncoder).encodeFileToFile("someFile");
+            verify(mockEncoder).encodeFileToFile("someFile", "someFile.edward");
         }
 
     }
@@ -145,11 +145,11 @@ class ArgumentParserTest {
         }
 
         @Test
-        @DisplayName("Should call the decode service with the path to encode")
+        @DisplayName("Should call the decode service with the path to decode")
         void callService() {
-            String[] args = {"decode", "-f", "someFile"};
+            String[] args = {"decode", "-f", "someFile.edward"};
             target.parseArgs(args);
-            verify(mockDecoder).decodeFileToFile("someFile");
+            verify(mockDecoder).decodeFileToFile("someFile.edward", "someFile");
         }
 
     }

@@ -16,7 +16,7 @@ import java.util.Base64;
 @Service
 public class Encoder {
 
-    public void encodeFileToFile(String readPath) {
+    void encodeFileToFile(String readPath, String writePath) {
         byte[] fileBytes;
         try {
             fileBytes = Files.readAllBytes(Paths.get(readPath));
@@ -25,7 +25,6 @@ public class Encoder {
         }
         String fileString = Base64.getEncoder().encodeToString(fileBytes);
 
-        String writePath = readPath + ".edward"; // Write out to example.png.edward
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(writePath))) {
             writer.write(fileString);
         } catch (IOException ex) {

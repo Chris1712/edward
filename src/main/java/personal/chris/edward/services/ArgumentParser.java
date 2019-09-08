@@ -44,23 +44,49 @@ public class ArgumentParser {
     }
 
     private void validateEncode(String[] args) {
-        if (args.length != 3) {
+        if (args.length != 3 && args.length != 5) {
             throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
         }
         if (!args[1].equals("-f")) {
             throw new IllegalArgumentException(Messages.MUST_SUPPLY_FILE_FOR_ENCODE);
         }
-        encoder.encodeFileToFile(args[2]);
+        if (args.length == 3) {
+            // No output file specified, write out to input file less "edward"
+            String writePath = args[2] + ".edward"; // Write out to example.png.edward
+            encoder.encodeFileToFile(args[2], writePath);
+        } else {
+            validateEncodeWithFileSpecified(args);
+        }
+    }
+
+    private void validateEncodeWithFileSpecified(String[] args) {
+        if (!args[3].equals("-o")) {
+            throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
+        }
+        encoder.encodeFileToFile(args[2], args[4]);
     }
 
     private void validateDecode(String[] args) {
-        if (args.length != 3) {
+        if (args.length != 3 && args.length != 5) {
             throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
         }
         if (!args[1].equals("-f")) {
             throw new IllegalArgumentException(Messages.MUST_SUPPLY_FILE_FOR_DECODE);
         }
-        decoder.decodeFileToFile(args[2]);
+        if (args.length == 3) {
+            // No output file specified, write out to input file less "edward"
+            String writePath = args[2].substring(0, (args[2].length()-7));
+            decoder.decodeFileToFile(args[2], writePath);
+        } else {
+            validateDecodeWithFileSpecified(args);
+        }
+    }
+
+    private void validateDecodeWithFileSpecified(String[] args) {
+        if (!args[3].equals("-o")) {
+            throw new IllegalArgumentException(Messages.INCORRECT_ARGS);
+        }
+        decoder.decodeFileToFile(args[2], args[4]);
     }
 
 }

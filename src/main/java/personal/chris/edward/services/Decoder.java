@@ -15,7 +15,7 @@ import java.util.Base64;
 @Service
 public class Decoder {
 
-    public void decodeFileToFile(String readPath) {
+    void decodeFileToFile(String readPath, String writePath) {
         String fileContent;
         try {
             fileContent = new String(Files.readAllBytes(Paths.get(readPath)));
@@ -24,7 +24,6 @@ public class Decoder {
         }
         byte[] fileBytes = Base64.getDecoder().decode(fileContent);
 
-        String writePath = readPath.substring(0, readPath.length()-7);
         try (FileOutputStream stream = new FileOutputStream(writePath)) {
             stream.write(fileBytes);
         } catch (IOException ex) {

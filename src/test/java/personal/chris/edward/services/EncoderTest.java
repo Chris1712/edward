@@ -20,7 +20,7 @@ class EncoderTest {
     void noFile() {
         Encoder target = new Encoder();
         assertThrows(IllegalArgumentException.class, () ->
-                target.encodeFileToFile("src/test/resources/nosuchfile.xyz")
+                target.encodeFileToFile("src/test/resources/nosuchfile.xyz", "out")
         );
     }
 
@@ -28,7 +28,7 @@ class EncoderTest {
     @DisplayName("Should create a correctly encoded text file")
     void encodesCorrectly() throws IOException {
         Encoder target = new Encoder();
-        target.encodeFileToFile(testFile);
+        target.encodeFileToFile(testFile, expectedEncodedFile);
         String encodedFileContent = new String(Files.readAllBytes(Paths.get(expectedEncodedFile)));
         assertEquals("iVBORw0KGg", encodedFileContent.substring(0, 10)); // correct start
         assertEquals("lFTkSuQmCC", encodedFileContent.substring(encodedFileContent.length()-10)); // correct end

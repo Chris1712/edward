@@ -22,7 +22,7 @@ class DecoderTest {
     void noFile() {
         Decoder target = new Decoder();
         assertThrows(IllegalArgumentException.class, () ->
-                target.decodeFileToFile("src/test/resources/nosuchfile.xyz")
+                target.decodeFileToFile("src/test/resources/nosuchfile.xyz", "out")
         );
     }
 
@@ -31,7 +31,7 @@ class DecoderTest {
     void decodesCorrectly() throws IOException {
         Decoder target = new Decoder();
 
-        target.decodeFileToFile(testFile);
+        target.decodeFileToFile(testFile, expectedDecodedFile);
 
         InputStream decodedStream = Files.newInputStream(Paths.get(expectedDecodedFile));
         String decodedFileHash = DigestUtils.md5DigestAsHex(decodedStream);
