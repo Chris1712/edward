@@ -36,7 +36,6 @@ class EncoderTest {
 
     @AfterAll
     static void cleanup() throws IOException {
-        // delete the files
         Files.delete(Paths.get(expectedEncodedFile));
     }
 
