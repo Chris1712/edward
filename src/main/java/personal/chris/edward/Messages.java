@@ -14,4 +14,11 @@ public class Messages {
               "Edward is a tool for encoding and decoding files to base64 strings\n"
             + "To encode a file use 'edward encode -f myFile\n"
             + "To decode a file try 'edward decode -f myFile.edward";
+
+    public static String fileEncodedToFile(String readPath, String writePath) {
+        return String.format("Encoded %s to %s", readPath, writePath);
+    }
+    public static String fileDecodedToFile(String readPath, String writePath) {
+        return String.format("Decoded %s to %s", readPath, writePath);
+    }
 }

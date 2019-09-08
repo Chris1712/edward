@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 
@@ -17,22 +16,21 @@ import java.util.Base64;
 @Service
 public class Encoder {
 
-    public void encodeFileToFile(String filePath) {
-        Path readPath = Paths.get(filePath);
+    public void encodeFileToFile(String readPath) {
         byte[] fileBytes;
         try {
-            fileBytes = Files.readAllBytes(readPath);
+            fileBytes = Files.readAllBytes(Paths.get(readPath));
         } catch (IOException ex) {
             throw new IllegalArgumentException(Messages.COULD_NOT_READ + readPath);
         }
         String fileString = Base64.getEncoder().encodeToString(fileBytes);
 
-        String writePath = filePath + ".edward"; // Write out to example.png.edward
+        String writePath = readPath + ".edward"; // Write out to example.png.edward
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(writePath))) {
             writer.write(fileString);
         } catch (IOException ex) {
             throw new IllegalArgumentException(Messages.COULD_NOT_WRITE + writePath);
         }
+        System.out.println(Messages.fileEncodedToFile(readPath, writePath));
     }
-
 }
