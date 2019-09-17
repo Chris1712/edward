@@ -1,2 +1,1 @@
-1. Create release on GH
-2. If we write to a file, we shouldn't need to have the whole file in memory, we can load and write simultaneously
+1. If we write to a file, we shouldn't need to have the whole file in memory, we can load and write simultaneously
